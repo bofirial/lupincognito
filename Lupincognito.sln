@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{585E5059-3A71-4BEE-AAEB-27C4BC79D2AB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		version.json = version.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lupincognito.Web.Server", "Lupincognito.Web\Server\Lupincognito.Web.Server.csproj", "{D014EFCA-4D4C-4513-93C1-D32D81A1F80B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lupincognito.Web.Client", "Lupincognito.Web\Client\Lupincognito.Web.Client.csproj", "{2FD992C9-23E4-4AE1-8B86-8C6987502DA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lupincognito.Web.Shared", "Lupincognito.Web\Shared\Lupincognito.Web.Shared.csproj", "{7EB536A0-F7CC-4159-81FB-8E17BB507824}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D014EFCA-4D4C-4513-93C1-D32D81A1F80B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D014EFCA-4D4C-4513-93C1-D32D81A1F80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D014EFCA-4D4C-4513-93C1-D32D81A1F80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D014EFCA-4D4C-4513-93C1-D32D81A1F80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD992C9-23E4-4AE1-8B86-8C6987502DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD992C9-23E4-4AE1-8B86-8C6987502DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD992C9-23E4-4AE1-8B86-8C6987502DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD992C9-23E4-4AE1-8B86-8C6987502DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB536A0-F7CC-4159-81FB-8E17BB507824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB536A0-F7CC-4159-81FB-8E17BB507824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB536A0-F7CC-4159-81FB-8E17BB507824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB536A0-F7CC-4159-81FB-8E17BB507824}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30A70EA4-2F16-4445-B4D7-6C7A6F9751C8}
+	EndGlobalSection
+EndGlobal
