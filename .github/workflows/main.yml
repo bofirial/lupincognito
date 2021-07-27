@@ -21,9 +21,10 @@ jobs:
           fetch-depth: 0
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1.8.1
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "6.0"
+          dotnet-version: '6.0.x'
+          include-prerelease: true
 
       # - name: DotNet Test
         # run: dotnet test ./DungeonBotGame.Tests/DungeonBotGame.Tests.csproj -c Release -r win-x86
