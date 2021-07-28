@@ -1,13 +1,15 @@
 ﻿@page "/"
 @using Lupincognito.Web.Shared
 
-<div class="text-center m-2">
-    <h1 class="p-4"><NavLink class="text-decoration-none text-reset" href="">@Application.Name</NavLink></h1>
+<div class="row justify-content-center text-center m-2">
+    <h1 class="col-12 p-4"><NavLink class="text-decoration-none text-reset" href="">@Application.Name</NavLink></h1>
 
-    <p class="lead my-3">Play <strong>@Application.Name</strong> with friends. To create or join a game, enter a name and click 'Go'.</p>
+    <p class="col-12 lead my-3">Play <strong>@Application.Name</strong> with friends. To create or join a game, enter a name and click 'Go'.</p>
 
-    <div class="input-group input-group-lg py-4 w-50 mx-auto">
-      <input type="text" class="form-control" placeholder="Name" aria-label="Game or Lobby Name" aria-describedby="go-button">
-      <button class="btn btn-success" type="button" id="go-button">Go!</button>
+    <div class="col-12 col-lg-9 col-xl-6">
+        <div class="input-group input-group-lg py-4 mx-auto">
+            <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="go-button">
+            <button class="btn btn-success" type="button" id="go-button">Go!</button>
+        </div>
     </div>
 </div>
