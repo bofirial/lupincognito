@@ -1,15 +1,47 @@
 ﻿@page "/"
-@using Lupincognito.Web.Shared
+@using Microsoft.Extensions.Logging
+
+@inject ILogger<Index> Logger
 
 <div class="row justify-content-center text-center m-2">
     <h1 class="col-12 p-4"><NavLink class="text-decoration-none text-reset" href="">@Application.Name</NavLink></h1>
 
     <p class="col-12 lead my-3">Play <strong>@Application.Name</strong> with friends. To create or join a game, enter a name and click 'Go'.</p>
 
-    <div class="col-12 col-lg-9 col-xl-6">
-        <div class="input-group input-group-lg py-4 mx-auto">
-            <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="go-button">
-            <button class="btn btn-success" type="button" id="go-button">Go!</button>
+    <EditForm class="col-12 col-lg-9 col-xl-6" EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+
+        <div class="input-group input-group-lg py-4 mx-auto @(formInvalid ? "has-validation" : string.Empty)">
+            <InputText class="form-control" placeholder="Name" aria-label="Name" aria-describedby="go-button" @bind-Value="newGameModel.Name" />
+            <button class="btn btn-success" type="submit" id="go-button" disabled="@(formInvalid)">Go!</button>
+            <CustomValidationMessage Class="invalid-feedback" For="() => newGameModel.Name" />
         </div>
-    </div>
+    </EditForm>
 </div>
+
+@code {
+    private NewGameModel newGameModel = new()
+    {
+        Name = "green-frog"
+    };
+    private bool formInvalid = false;
+    private EditContext editContext;
+
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation($"Form Submitted: ({newGameModel.Name})");
+    }
+
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        formInvalid = !editContext.Validate();
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        editContext = new(newGameModel);
+        editContext.SetFieldCssClassProvider(new CustomFieldCssClassProvider());
+        editContext.OnFieldChanged += HandleFieldChanged;
+    }
+}
