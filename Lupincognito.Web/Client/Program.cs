@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Fluxor;
+using Lupincognito.Web.Client.Messenger;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,8 @@ namespace Lupincognito.Web.Client
 
             var currentAssembly = typeof(Program).Assembly;
             builder.Services.AddFluxor(options => options.ScanAssemblies(currentAssembly));
+
+            builder.Services.AddSingleton<IGameHubMessenger, GameHubMessenger>();
 
             await builder.Build().RunAsync();
         }

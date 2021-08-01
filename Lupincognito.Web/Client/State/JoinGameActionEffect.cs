@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 
@@ -15,7 +16,9 @@ namespace Lupincognito.Web.Client.State
 
         public override Task HandleAsync(JoinGameAction action, IDispatcher dispatcher)
         {
-            _navigationManager.NavigateTo($"game/{action.Name}");
+            var urlEncodedGameName = WebUtility.UrlEncode(action.Name);
+
+            _navigationManager.NavigateTo($"game/{urlEncodedGameName}");
 
             return Task.CompletedTask;
         }

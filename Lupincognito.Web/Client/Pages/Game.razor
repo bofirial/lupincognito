@@ -1,4 +1,7 @@
 ﻿@page "/game/{name}"
+@using Lupincognito.Web.Client.Messenger
+
+@inject IGameHubMessenger GameHubMessenger
 
 <div class="row justify-content-center text-center m-2">
     <h1 class="col-12 p-4">@Name</h1>
@@ -7,4 +10,9 @@
 @code {
     [Parameter]
     public string Name { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GameHubMessenger.StartConnectionAsync(Name);
+    }
 }
