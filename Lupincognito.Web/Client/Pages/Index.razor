@@ -9,33 +9,15 @@
 
     <h1 class="col-12 p-4"><NavLink class="text-decoration-none text-reset" href="">@Application.Name</NavLink></h1>
 
-    <p class="col-12 lead my-3">Play <strong>@Application.Name</strong> with friends. To create or join a game, enter a name and click 'Go'.</p>
-
-    <div class="col-12 col-lg-9 col-xl-6">
-        <div class="input-group input-group-lg py-4 mx-auto @(playerNameInvalid ? "has-validation" : string.Empty)">
-            <span class="input-group-text" id="player-name-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-            </span>
-            <InputText class="@PlayerNameInputClass" placeholder="Player Name" aria-label="Player Name" aria-describedby="player-name-icon" @bind-Value="newGameModel.PlayerName" />
-            <CustomValidationMessage Class="invalid-feedback" For="() => newGameModel.PlayerName" />
-        </div>
-    </div>
+    <p class="col-12 lead my-3">Play <strong>@Application.Name</strong> with friends. To create or join a game, enter a game name and click 'Go'.</p>
 
     <div class="col-12 col-lg-9 col-xl-6">
         <div class="input-group input-group-lg py-4 mx-auto @(gameNameInvalid ? "has-validation" : string.Empty)">
-            <span class="input-group-text" id="player-name-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-club-fill" viewBox="0 0 16 16">
-                    <path d="M11.5 12.5a3.493 3.493 0 0 1-2.684-1.254 19.92 19.92 0 0 0 1.582 2.907c.231.35-.02.847-.438.847H6.04c-.419 0-.67-.497-.438-.847a19.919 19.919 0 0 0 1.582-2.907 3.5 3.5 0 1 1-2.538-5.743 3.5 3.5 0 1 1 6.708 0A3.5 3.5 0 1 1 11.5 12.5z" />
-                </svg>
-            </span>
             <InputText class="@GameNameInputClass" placeholder="Game Name" aria-label="Game Name" aria-describedby="go-button" @bind-Value="newGameModel.GameName" />
+            <button class="btn btn-success" type="submit" id="go-button" disabled="@(gameNameInvalid)">Go!</button>
             <CustomValidationMessage Class="invalid-feedback" For="() => newGameModel.GameName" />
         </div>
-    </div>
-
-    <button class="btn btn-success" type="submit" id="go-button" disabled="@(!editContext.IsModified(editContext.Field("PlayerName")) || playerNameInvalid || gameNameInvalid)">Go!</button>
+    </div>    
 </EditForm>
 
 @code {
@@ -43,7 +25,6 @@
     {
         GameName = "rainbow-sheep"
     };
-    private bool playerNameInvalid = false;
     private bool gameNameInvalid = false;
     private EditContext editContext;
 
@@ -66,10 +47,8 @@
 
     private void UpdateValidationState()
     {
-        var playerNameIdentifier = editContext.Field("PlayerName");
         var gameNameIdentifier = editContext.Field("GameName");
         
-        playerNameInvalid = editContext.GetValidationMessages(playerNameIdentifier).Any();
         gameNameInvalid = editContext.GetValidationMessages(gameNameIdentifier).Any();
 
         StateHasChanged();
@@ -79,19 +58,6 @@
     {
         editContext = new(newGameModel);
         editContext.OnValidationStateChanged += HandleFieldChanged;
-    }
-
-    private string PlayerNameInputClass
-    {
-        get
-        {
-            if (!editContext.IsModified(editContext.Field("PlayerName")))
-            {
-                return "form-control";
-            }
-
-            return playerNameInvalid ? "form-control is-invalid" : "form-control is-valid";
-        }
     }
 
     private string GameNameInputClass
