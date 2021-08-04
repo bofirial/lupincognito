@@ -5,11 +5,16 @@ namespace Lupincognito.Web.Server.Hubs
 {
     public class GameHub : Hub
     {
-        public async Task JoinGameAsync(string gameName)
+        public GameHub()
+        {
+
+        }
+
+        public async Task JoinGame(string gameName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, gameName);
 
-            await Clients.Group(gameName).SendAsync("GameStateUpdate", $"{Context.User.Identity.Name} joined the game. ({Context.ConnectionId})");
+            //await Clients.Group(gameName).SendAsync("GameStateUpdate", new GameState());
         }
     }
 }

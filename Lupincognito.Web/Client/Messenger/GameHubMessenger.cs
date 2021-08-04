@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Lupincognito.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
@@ -29,14 +30,14 @@ namespace Lupincognito.Web.Client.Messenger
             .WithUrl(_navigationManager.ToAbsoluteUri(HubUri))
             .Build();
 
-            _hubConnection.On<string>("GameStateUpdate", (message) =>
+            _hubConnection.On<GameState>("GameStateUpdate", (message) =>
             {
-                _logger.LogInformation(message);
+
             });
 
             await _hubConnection.StartAsync();
 
-            await _hubConnection.SendAsync("JoinGameAsync", gameName);
+            await _hubConnection.SendAsync("JoinGame", gameName);
         }
     }
 }
