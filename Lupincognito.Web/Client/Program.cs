@@ -1,10 +1,6 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Fluxor;
+﻿using Fluxor;
 using Lupincognito.Web.Client.Messenger;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Lupincognito.Web.Client
 {

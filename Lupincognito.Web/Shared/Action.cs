@@ -1,10 +1,11 @@
 ﻿namespace Lupincognito.Web.Shared
 {
-    public record Action(
-        string PlayerId,
-        ActionType ActionType,
-        short ActionNumber,
-        CreatureColor TargetCreatureColor,
-        Room TargetRoom
-    );
+    public class Action
+    {
+        public string PlayerId { get; init; }
+        public ActionType ActionType { get; init; }
+        public short ActionNumber { get; init; }
+        public CreatureColor TargetCreatureColor { get; init; }
+        public Room TargetRoom { get; init; }
+    }
 }

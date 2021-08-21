@@ -1,8 +1,9 @@
 ﻿namespace Lupincognito.Web.Shared
 {
-    public record Creature(
-        CreatureColor Color,
-        Room Room,
-        CreatureStatus CreatureStatus
-    );
+    public class Creature
+    {
+        public CreatureColor Color { get; init; }
+        public Room Room { get; init; }
+        public CreatureStatus CreatureStatus { get; init; }
+    }
 }

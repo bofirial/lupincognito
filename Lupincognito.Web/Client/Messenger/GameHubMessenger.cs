@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-using Lupincognito.Web.Shared;
+﻿using Lupincognito.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.Logging;
 
 namespace Lupincognito.Web.Client.Messenger
 {

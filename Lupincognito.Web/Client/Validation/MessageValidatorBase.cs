@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -30,6 +29,7 @@ namespace Lupincognito.Web.Client.Validation
             EditContext.OnValidationStateChanged += StateChangedHandler;
         }
 
+        [SuppressMessage("Usage", "CA1816:Dispose methods should call SuppressFinalize", Justification = "Nothing will derive from this class")]
         public void Dispose() => EditContext.OnValidationStateChanged -= StateChangedHandler;
     }
 }
