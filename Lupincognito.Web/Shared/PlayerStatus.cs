@@ -1,9 +1,8 @@
-﻿namespace Lupincognito.Web.Shared
+﻿namespace Lupincognito.Web.Shared;
+public enum PlayerStatus
 {
-    public enum PlayerStatus
-    {
-        Spectating,
-        Active,
-        Deceased
-    }
+    Spectating,
+    Active,
+    Deceased
 }
+

@@ -1,9 +1,7 @@
-﻿namespace Lupincognito.Web.Shared
+﻿namespace Lupincognito.Web.Shared;
+public enum ActionType
 {
-    public enum ActionType
-    {
-        Movement,
-        Hunger,
-        SkipHunger
-    }
+    Movement,
+    Hunger,
+    SkipHunger
 }

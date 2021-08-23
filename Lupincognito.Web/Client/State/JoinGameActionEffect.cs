@@ -2,24 +2,22 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 
-namespace Lupincognito.Web.Client.State
+namespace Lupincognito.Web.Client.State;
+public class JoinGameActionEffect : Effect<JoinGameAction>
 {
-    public class JoinGameActionEffect : Effect<JoinGameAction>
+    private readonly NavigationManager _navigationManager;
+
+    public JoinGameActionEffect(NavigationManager navigationManager)
     {
-        private readonly NavigationManager _navigationManager;
+        _navigationManager = navigationManager;
+    }
 
-        public JoinGameActionEffect(NavigationManager navigationManager)
-        {
-            _navigationManager = navigationManager;
-        }
+    public override Task HandleAsync(JoinGameAction action, IDispatcher dispatcher)
+    {
+        var urlEncodedGameName = WebUtility.UrlEncode(action.Name);
 
-        public override Task HandleAsync(JoinGameAction action, IDispatcher dispatcher)
-        {
-            var urlEncodedGameName = WebUtility.UrlEncode(action.Name);
+        _navigationManager.NavigateTo($"game/{urlEncodedGameName}");
 
-            _navigationManager.NavigateTo($"game/{urlEncodedGameName}");
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

@@ -1,12 +1,12 @@
-﻿using Lupincognito.Web.Shared;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace Lupincognito.Web.Server.Data
+namespace Lupincognito.Web.Server.Data;
+public class GameContext : DbContext
 {
-    public class GameContext : DbContext
-    {
-        public DbSet<GameState> GameStates { get; set; }
+    public DbSet<Game> Games { get; set; }
+    public DbSet<Player> Players { get; set; }
+    public DbSet<Creature> Creatures { get; set; }
+    public DbSet<Action> Actions { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseInMemoryDatabase(databaseName: "Game");
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseInMemoryDatabase(databaseName: "GameDb");
 }

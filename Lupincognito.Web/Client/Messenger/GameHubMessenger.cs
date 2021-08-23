@@ -1,41 +1,38 @@
-﻿using Lupincognito.Web.Shared;
+﻿using Fluxor;
+using Lupincognito.Web.Client.State;
+using Lupincognito.Web.Shared.State;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace Lupincognito.Web.Client.Messenger
+namespace Lupincognito.Web.Client.Messenger;
+public interface IGameHubMessenger
 {
-    public interface IGameHubMessenger
+    Task StartConnectionAsync(string gameName);
+}
+
+public class GameHubMessenger : IGameHubMessenger
+{
+    private const string HubUri = "/gamehub";
+    private HubConnection _hubConnection;
+    private readonly NavigationManager _navigationManager;
+    private readonly IDispatcher _dispatcher;
+
+    public GameHubMessenger(NavigationManager navigationManager, IDispatcher dispatcher)
     {
-        Task StartConnectionAsync(string gameName);
+        _navigationManager = navigationManager;
+        _dispatcher = dispatcher;
     }
 
-    public class GameHubMessenger : IGameHubMessenger
+    public async Task StartConnectionAsync(string gameName)
     {
-        private const string HubUri = "/gamehub";
-        private HubConnection _hubConnection;
-        private readonly NavigationManager _navigationManager;
-        private readonly ILogger<GameHubMessenger> _logger;
-
-        public GameHubMessenger(NavigationManager navigationManager, ILogger<GameHubMessenger> logger)
-        {
-            _navigationManager = navigationManager;
-            _logger = logger;
-        }
-
-        public async Task StartConnectionAsync(string gameName)
-        {
-            _hubConnection = new HubConnectionBuilder()
+        _hubConnection = new HubConnectionBuilder()
             .WithUrl(_navigationManager.ToAbsoluteUri(HubUri))
             .Build();
 
-            _hubConnection.On<GameState>("GameStateUpdate", (message) =>
-            {
+        _hubConnection.On<GameState>("GameStateUpdate", (gameState) => _dispatcher.Dispatch(new GameStateUpdateAction(gameState)));
 
-            });
+        await _hubConnection.StartAsync();
 
-            await _hubConnection.StartAsync();
-
-            await _hubConnection.SendAsync("JoinGame", gameName);
-        }
+        await _hubConnection.SendAsync("JoinGame", gameName);
     }
 }

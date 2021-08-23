@@ -1,51 +1,72 @@
-﻿using System.Collections.Immutable;
-using Lupincognito.Web.Server.Data;
+﻿using Lupincognito.Web.Server.Data;
+using Lupincognito.Web.Server.Mappers;
 using Lupincognito.Web.Shared;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
-namespace Lupincognito.Web.Server.Hubs
+namespace Lupincognito.Web.Server.Hubs;
+public class GameHub : Hub
 {
-    public class GameHub : Hub
+    private readonly GameContext _gameContext;
+    private readonly IGameStateMapper _gameStateMapper;
+
+    public GameHub(GameContext gameContext, IGameStateMapper gameStateMapper)
     {
-        private readonly GameContext _gameContext;
+        _gameContext = gameContext;
+        _gameStateMapper = gameStateMapper;
+    }
 
-        public GameHub(GameContext gameContext)
+    public async Task JoinGame(string gameName)
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId, gameName);
+
+        var game = await _gameContext.Games
+            .Include(x => x.Players)
+            .Include(x => x.Creatures)
+            .Include(x => x.Actions)
+            .FirstOrDefaultAsync(x => x.GameName == gameName && x.GameStatus == GameStatus.Ready);
+
+        if (game == null)
         {
-            _gameContext = gameContext;
-        }
-
-        public async Task JoinGame(string gameName)
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, gameName);
-
-            var gameState = _gameContext.GameStates.FirstOrDefault(x => x.GameId == gameName && x.GameStatus == GameStatus.Ready);
-
-            if (gameState == null)
+            game = new()
             {
-                gameState = new GameState()
+                GameName = gameName,
+                GameStatus = GameStatus.Ready,
+                CurrentTurnPlayerId = string.Empty,
+                CurrentTurnDiceRoll = default,
+                Players = new()
                 {
-                    GameId = gameName,
-                    GameStatus = GameStatus.Ready,
-                    CurrentTurnPlayerId = string.Empty,
-                    CurrentTurnDiceRoll = default,
-                    Players = ImmutableList.Create(new Player()
+                    new()
                     {
-                        PlayerId = Context.ConnectionId,
+                        ConnectionId = Context.ConnectionId,
                         DisplayName = "Player 1",
                         PlayerStatus = PlayerStatus.Spectating,
                         HungerSkipsRemaining = 3,
                         TurnOrder = default
-                    }),
-                    Creatures = ImmutableList<Creature>.Empty,
-                    Actions = ImmutableList<Shared.Action>.Empty
-                };
+                    }
+                },
+                Creatures = new(),
+                Actions = new()
+            };
 
-                _gameContext.GameStates.Add(gameState);
+            _gameContext.Games.Add(game);
 
-                await _gameContext.SaveChangesAsync();
-            }
-
-            //await Clients.Group(gameName).SendAsync("GameStateUpdate", new GameState());
+            await _gameContext.SaveChangesAsync();
         }
+        else
+        {
+            game.Players.Add(new()
+            {
+                ConnectionId = Context.ConnectionId,
+                DisplayName = $"Player {game.Players.Count + 1}",
+                PlayerStatus = PlayerStatus.Spectating,
+                HungerSkipsRemaining = 3,
+                TurnOrder = default
+            });
+
+            await _gameContext.SaveChangesAsync();
+        }
+
+        await Clients.Group(gameName).SendAsync("GameStateUpdate", _gameStateMapper.Map(game));
     }
 }

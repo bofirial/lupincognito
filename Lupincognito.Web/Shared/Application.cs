@@ -1,7 +1,5 @@
-﻿namespace Lupincognito.Web.Shared
+﻿namespace Lupincognito.Web.Shared;
+public static class Application
 {
-    public static class Application
-    {
-        public static string Name => "Lupincognito";
-    }
+    public static string Name => "Lupincognito";
 }

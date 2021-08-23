@@ -1,8 +1,6 @@
-﻿namespace Lupincognito.Web.Shared
+﻿namespace Lupincognito.Web.Shared;
+public enum CreatureStatus
 {
-    public enum CreatureStatus
-    {
-        Active,
-        Deceased
-    }
+    Active,
+    Deceased
 }

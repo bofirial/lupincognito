@@ -1,10 +1,24 @@
 ﻿@page "/game/{name}"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
 @using Lupincognito.Web.Client.Messenger
 
 @inject IGameHubMessenger GameHubMessenger
 
+@inject IState<GameState> GameState
+
 <div class="row justify-content-center text-center m-2">
     <h1 class="col-12 p-4">@Name</h1>
+
+	@if (GameState?.Value?.Players != null)
+	{
+	<ul class="list-group">
+        @foreach (var player in GameState.Value.Players)
+        {
+      <li class="list-group-item">@player.DisplayName (@player.ConnectionId)</li>
+        }
+    </ul>
+	}
 </div>
 
 @code {

@@ -1,8 +1,7 @@
-﻿namespace Lupincognito.Web.Shared
+﻿namespace Lupincognito.Web.Shared;
+public enum GameStatus
 {
-    public enum GameStatus
-    {
-        Ready,
-        Active
-    }
+    Ready,
+    Active
 }
+
