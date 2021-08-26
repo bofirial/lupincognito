@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Lupincognito.Web.Server.Data;
+﻿using Lupincognito.Web.Server.Data;
 using Lupincognito.Web.Server.Mappers;
 using Lupincognito.Web.Shared;
 using Microsoft.AspNetCore.SignalR;
