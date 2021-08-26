@@ -10,15 +10,13 @@
 <div class="row justify-content-center text-center m-2">
     <h1 class="col-12 p-4">@Name</h1>
 
-	@if (GameState?.Value?.Players != null)
-	{
-	<ul class="list-group">
-        @foreach (var player in GameState.Value.Players)
-        {
-      <li class="list-group-item">@player.DisplayName (@player.ConnectionId)</li>
-        }
-    </ul>
-	}
+    <PlayerList Players=GameState.Value?.Players CurrentTurnPlayerId=GameState.Value?.CurrentTurnPlayerId />
+
+	<GameBoard Creatures=GameState.Value?.Creatures />
+
+	<Dice DiceRollResult=GameState.Value?.CurrentTurnDiceRoll />
+
+	<ActionList Actions=GameState.Value?.Actions />
 </div>
 
 @code {

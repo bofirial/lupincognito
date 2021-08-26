@@ -7,4 +7,3 @@ public enum DiceRollResult
     Room4,
     Hunger
 }
-

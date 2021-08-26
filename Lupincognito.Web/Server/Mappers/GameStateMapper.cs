@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Linq;
 using Lupincognito.Web.Server.Data;
 using Lupincognito.Web.Shared.State;
 
@@ -21,7 +22,6 @@ public class GameStateMapper : IGameStateMapper
         );
 
     private static PlayerState Map(Player player) => new(
-                        player.ConnectionId,
                         player.DisplayName,
                         player.PlayerStatus,
                         player.TurnOrder,

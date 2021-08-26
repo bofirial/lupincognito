@@ -1,4 +1,5 @@
-﻿using Lupincognito.Web.Shared;
+﻿using System.Collections.Generic;
+using Lupincognito.Web.Shared;
 
 namespace Lupincognito.Web.Server.Data;
 public class Game

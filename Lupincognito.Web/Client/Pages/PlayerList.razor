@@ -1,0 +1,17 @@
+﻿@if (Players != null)
+{
+<ul class="list-group">
+    @foreach (var player in Players)
+    {
+    <li class="list-group-item">@player.DisplayName</li>
+    }
+</ul>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<PlayerState> Players { get; set; } = null;
+
+    [Parameter]
+    public string CurrentTurnPlayerId { get; set; } = null;
+}

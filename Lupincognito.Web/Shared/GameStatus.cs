@@ -4,4 +4,3 @@ public enum GameStatus
     Ready,
     Active
 }
-

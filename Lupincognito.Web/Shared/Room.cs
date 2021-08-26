@@ -13,4 +13,3 @@ public enum Room
     Playroom,
     Hospital
 }
-

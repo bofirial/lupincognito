@@ -5,4 +5,3 @@ public enum PlayerStatus
     Active,
     Deceased
 }
-
